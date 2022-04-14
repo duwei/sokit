@@ -26,6 +26,8 @@ private:
 
 private slots:
 	void trigger(bool checked);
+    void loadLog();
+    void sendFromLog();
 	void unpluged();
 
 private:

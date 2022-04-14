@@ -32,6 +32,8 @@ public:
 	quint16 srcPort() const { return m_spt; };
 	quint16 dstPort() const { return m_dpt; };
 
+    void setBlockSrc(bool block) { m_block_src = block; }
+    void setBlockDst(bool block) { m_block_dst = block; }
 signals:
 	void connOpen(const QString& key);
 	void connClose(const QString& key);
@@ -72,6 +74,10 @@ private:
 
 	OBJMAP m_conns;
 	QString m_error;
+
+protected:
+    bool m_block_src = false;
+    bool m_block_dst = false;
 };
 
 class TransferSktTcp : public TransferSkt
@@ -81,6 +87,7 @@ class TransferSktTcp : public TransferSkt
 		QTcpSocket* src;
 		QTcpSocket* dst;
 		QString key;
+        bool broken = false;
 	} Conn;
 
 	Q_OBJECT

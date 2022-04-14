@@ -45,7 +45,7 @@ void TransferForm::initConfig()
 	Setting::load(sst+SET_KEY_CMBSP, SET_PFX_CMBITM, *m_ui.cmbSrcPort);
 	Setting::load(sst+SET_KEY_CMBDP, SET_PFX_CMBITM, *m_ui.cmbDstPort);
 	const quint16 FailSafeSrcPort = 8081;
-	const quint16 FailSafeDstPort = 8082;
+    const quint16 FailSafeDstPort = 33000;
 	if (m_ui.cmbSrcPort->currentText().length() <= 0) {
 		m_ui.cmbSrcPort->setEditText(QString::number(FailSafeSrcPort));
 	}
@@ -89,6 +89,10 @@ bool TransferForm::initForm()
 
 	connect(m_ui.btnTrigger, SIGNAL(clicked(bool)), this, SLOT(trigger(bool)));
 
+    connect(m_ui.chkBlockSrc, SIGNAL(clicked(bool)), this, SLOT(block()));
+    connect(m_ui.chkBlockDst, SIGNAL(clicked(bool)), this, SLOT(block()));
+    connect(m_ui.btnResend, SIGNAL(clicked(bool)), this, SLOT(resend()));
+
 	return true;
 }
 
@@ -109,6 +113,15 @@ void TransferForm::kill(QStringList& list)
 		while (!list.isEmpty())
 			m_server->kill(list.takeFirst());
 	}
+}
+
+void TransferForm::block()
+{
+    if (m_server)
+    {
+        m_server->setBlockSrc(m_ui.chkBlockSrc->checkState() == Qt::CheckState::Checked);
+        m_server->setBlockDst(m_ui.chkBlockDst->checkState() == Qt::CheckState::Checked);
+    }
 }
 
 void TransferForm::trigger(bool start)
@@ -155,6 +168,10 @@ void TransferForm::trigger(bool start)
 					delete m_server;
 					m_server = NULL;
 				}
+                else
+                {
+                    block();
+                }
 			}
 			else
 			{
@@ -197,12 +214,49 @@ void TransferForm::send(const QString& data, const QString& dir)
 		listerSelected(list);
 
 		while (!list.isEmpty())
-			m_server->send(list.takeFirst(), s2d, data);
+        {
+               m_ui.labSend->setText("ddd");
+            m_server->send(list.takeFirst(), s2d, data);
+        }
 
 		unlock();
 	}
 }
 
+void TransferForm::resend()
+{
+
+//
+
+    if (m_server &&lock(1000))
+    {
+        QModelIndexList selection = m_ui.treeOutput->selectionModel()->selectedRows();
+
+        QStringList list;
+        listerSelected(list);
+
+        while (!list.isEmpty())
+        {
+            QString key = list.takeFirst();
+            for (int i=0; i<selection.count(); i++) {
+                QModelIndex index = selection.at(i);
+                if (index.child(0, 0).isValid())
+                {
+                    QString trn = index.data().toString();
+                    bool s2d = trn.indexOf("-->>") != -1;
+                    if (!s2d && trn.indexOf("<<--") == -1)
+                    {
+                        continue;
+                    }
+                    QString data = index.child(0, 0).data().toString();
+                    m_server->send(key, s2d, data);
+                }
+            }
+        }
+
+        unlock();
+    }
+}
 
 
 

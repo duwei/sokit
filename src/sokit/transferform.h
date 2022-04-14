@@ -24,6 +24,8 @@ protected:
 private slots:
 	void trigger(bool start);
 	void stop();
+    void block();
+    void resend();
 
 private:
 	TransferSkt* m_server;

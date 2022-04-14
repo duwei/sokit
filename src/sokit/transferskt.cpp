@@ -128,7 +128,8 @@ void TransferSkt::kill(const QString& key)
 
 void TransferSkt::send(const QString& key, bool s2d, const QString& data)
 {
-	void* v = m_conns.value(key);
+    show("send");
+    void* v = m_conns.value(key);
 	if (v)
 	{
 		QString err;
@@ -191,16 +192,24 @@ bool TransferSktTcp::open()
 bool TransferSktTcp::close(void* cookie)
 {
 	Conn* conn = (Conn*)cookie;
-	
-	if (conn->src)
+
+    if (conn->src)
+    {
+        conn->src->disconnect(this);
+        conn->broken = true;
+        delete conn->src;
+        return true;
+    }
+
+    if (conn->src)
 		conn->src->disconnect(this);
 
-	if (conn->dst)
-		conn->dst->disconnect(this);
+    if (conn->dst)
+        conn->dst->disconnect(this);
 
-	delete conn->src;
-	delete conn->dst;
-	delete conn;
+    delete conn->src;
+    delete conn->dst;
+    delete conn;
 
 	return true;
 }
@@ -212,24 +221,34 @@ void TransferSktTcp::close(QObject* obj)
 	Conn* conn = (Conn*)obj->property(PROP_CONN).value<void*>();
 	if (!conn) return;
 
-	if (conn->src)
+    if (conn->broken) return;
+    if (obj == conn->src)
+    {
+        unsetCookie(conn->key);
+        conn->broken = true;
+        return;
+    }
+
+
+    if (conn->src)
 	{
-		conn->src->disconnect(this);
+        conn->src->disconnect(this);
 
 		if (obj == conn->dst)
 			conn->src->deleteLater();
 	}
 
-	if (conn->dst)
+
+    if (conn->dst)
 	{
-		conn->dst->disconnect(this);
+        conn->dst->disconnect(this);
 
 		if (obj == conn->src)
 			conn->dst->deleteLater();
 	}
 
-	unsetCookie(conn->key);
-	delete conn;
+    unsetCookie(conn->key);
+    delete conn;
 }
 
 void TransferSktTcp::error()
@@ -339,19 +358,37 @@ void TransferSktTcp::newData()
 	{
 		recordRecv(readLen);
 
-		writeLen = 0;
-		ioLen = d->write(buf, readLen);
-		while (ioLen > 0)
-		{
-			writeLen += ioLen;
-			ioLen = d->write(buf+writeLen, readLen-writeLen);
-		}
+        if (conn->broken)
+        {
+            show(QString("broken").arg(buf));
+            dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
+        }
+        else if (s == conn->dst && m_block_dst)
+        {
+            show(QString("blocked").arg(buf));
+            dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
+        }
+        else if (s == conn->src && m_block_src)
+        {
+            show(QString("blocked").arg(buf));
+            dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
+        }
+        else
+        {
+            writeLen = 0;
+            ioLen = d->write(buf, readLen);
+            while (ioLen > 0)
+            {
+                writeLen += ioLen;
+                ioLen = d->write(buf+writeLen, readLen-writeLen);
+            }
 
-		if (ioLen >= 0)
-		{
-			recordSend(writeLen);
-			dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
-		}
+            if (ioLen >= 0)
+            {
+                recordSend(writeLen);
+                dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
+            }
+        }
 	}
 
 	TK::releaseBuffer(buf);

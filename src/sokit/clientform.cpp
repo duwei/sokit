@@ -2,6 +2,8 @@
 #include "setting.h"
 #include "clientskt.h"
 #include "clientform.h"
+#include <QFileDialog>
+#include <QTime>
 
 #define SET_SEC_CLT  "client"
 #define SET_KEY_CLT  "/client"
@@ -35,6 +37,8 @@ bool ClientForm::initForm()
 
 	connect(m_ui.btnTcp, SIGNAL(clicked(bool)), this, SLOT(trigger(bool)));
 	connect(m_ui.btnUdp, SIGNAL(clicked(bool)), this, SLOT(trigger(bool)));
+    connect(m_ui.btnLoadLog, SIGNAL(clicked(bool)), this, SLOT(loadLog()));
+    connect(m_ui.btnSend, SIGNAL(clicked(bool)), this, SLOT(sendFromLog()));
 
 	return true;
 }
@@ -123,6 +127,15 @@ void ClientForm::trigger(bool checked)
 		btn->click();
 }
 
+void ClientForm::loadLog()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("load log file."), "", tr("logs(*.log)"));
+    if (!fileName.isEmpty())
+    {
+        m_ui.edtLogFile->setText(fileName);
+    }
+}
+
 bool ClientForm::plug(bool istcp)
 {
 	ClientSkt* skt = 0;
@@ -184,4 +197,36 @@ void ClientForm::send(const QString& data, const QString&)
 	}
 }
 
+void ClientForm::sendFromLog()
+{
+    if (m_client)
+    {
+        QString logFile = m_ui.edtLogFile->text();
+        if (!logFile.isEmpty())
+        {
+            QFile file(logFile);
+            if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+            {
+                m_ui.btnSend->setEnabled(false);
+
+                while(!file.atEnd())
+                {
+                    QString line = file.readLine();
+                    if (line.indexOf("-->>") != -1)
+                    {
+                        QString data = file.readLine();
+                        m_client->send(data);
+                        QTime time;
+                        time.start();
+                        while(time.elapsed() < m_ui.spnInterval->value() * 1000)
+                        {
+                            QCoreApplication::processEvents();
+                        }
+                    }
+                }
+                m_ui.btnSend->setEnabled(true);
+            }
+        }
+    }
+}
 
