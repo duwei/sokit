@@ -27,6 +27,12 @@ private slots:
     void block();
     void resend();
 
+    void srcReply();
+    void dstReply();
+
+    void srcBlocked();
+    void dstBlocked();
+
 private:
 	TransferSkt* m_server;
 	Ui::TransferForm m_ui;

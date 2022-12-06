@@ -25,6 +25,7 @@ public:
 	void stop();
 
 	void send(const QString& key, bool s2d, const QString& data);
+    void flush(const QString& key, bool s2d);
 
 	const QHostAddress& srcAddr() const { return m_sip; };
 	const QHostAddress& dstAddr() const { return m_dip; };
@@ -44,9 +45,13 @@ signals:
 	void countRecv(qint32 bytes);
 	void countSend(qint32 bytes);
 
+    void srcBlocked();
+    void dstBlocked();
+
 protected:
 	enum DIR { TS2D, TD2S, SS2D, SD2S, }; 
 	void dump(const char* buf, qint32 len, DIR dir, const QString& key);
+    void store(const char* buf, qint32 len, DIR dir, const QString& key);
 	void show(const QString& msg);
 
 	void setError(const QString& err);
@@ -64,7 +69,6 @@ protected:
 	virtual bool close(void* cookie) =0;
 	virtual void send(void* cookie, bool s2d, const QByteArray& bin) =0;
 	virtual void close() =0;
-
 private:
 	QHostAddress m_sip;
 	QHostAddress m_dip;
@@ -74,6 +78,9 @@ private:
 
 	OBJMAP m_conns;
 	QString m_error;
+
+    QHash<QString, QByteArrayList> m_s2d_blocks;
+    QHash<QString, QByteArrayList> m_d2s_blocks;
 
 protected:
     bool m_block_src = false;

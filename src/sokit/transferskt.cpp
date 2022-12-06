@@ -27,6 +27,9 @@ bool TransferSkt::start(const QHostAddress& sip, quint16 spt, const QHostAddress
 	m_conns.clear();
 	m_error.clear();
 
+    m_s2d_blocks.clear();
+    m_d2s_blocks.clear();
+
 	bool res = open();
 
 	QString msg("start %1 transfer server %2!");
@@ -62,6 +65,8 @@ void TransferSkt::stop()
 	}
 
 	m_conns.clear();
+    m_s2d_blocks.clear();
+    m_d2s_blocks.clear();
 
 	close();
 
@@ -80,7 +85,7 @@ void TransferSkt::recordRecv(qint32 bytes)
 
 void TransferSkt::recordSend(qint32 bytes)
 {
-	emit countSend(bytes);
+    emit countSend(bytes);
 }
 
 void TransferSkt::getKeys(QStringList& res)
@@ -98,12 +103,16 @@ void TransferSkt::setCookie(const QString& k, void* v)
 	}
 
 	m_conns.insert(k, v);
+    m_s2d_blocks.insert(k, QByteArrayList());
+    m_d2s_blocks.insert(k, QByteArrayList());
 	emit connOpen(k);
 }
 
 void TransferSkt::unsetCookie(const QString& k)
 {
 	m_conns.remove(k);
+    m_s2d_blocks.remove(k);
+    m_d2s_blocks.remove(k);
 	emit connClose(k);
 }
 
@@ -142,6 +151,30 @@ void TransferSkt::send(const QString& key, bool s2d, const QString& data)
 	}
 }
 
+void TransferSkt::flush(const QString &key, bool s2d)
+{
+    show("flush");
+    void* v = m_conns.value(key);
+    if (v)
+    {
+        if (s2d) {
+           QByteArrayList list = m_s2d_blocks.value(key);
+           foreach (QByteArray item, list){
+               send(v, s2d, item);
+           }
+           list.clear();
+           m_s2d_blocks.insert(key, list);
+        } else {
+            QByteArrayList list = m_d2s_blocks.value(key);
+            foreach (QByteArray item, list){
+                send(v, s2d, item);
+            }
+            list.clear();
+            m_d2s_blocks.insert(key, list);
+        }
+    }
+}
+
 void TransferSkt::dump(const char* buf, qint32 len, TransferSkt::DIR dir, const QString& key)
 {
 	QString title("TRN");
@@ -156,6 +189,24 @@ void TransferSkt::dump(const char* buf, qint32 len, TransferSkt::DIR dir, const 
 	title += key;
 
 	emit dumpbin(title, buf, (quint32)len);
+}
+
+void TransferSkt::store(const char* buf, qint32 len, TransferSkt::DIR dir, const QString& key)
+{
+    QByteArrayList list;
+    switch (dir)
+    {
+        case TS2D:
+            list = m_s2d_blocks.value(key);
+            list.append(QByteArray(buf, len));
+            m_s2d_blocks.insert(key, list);
+            break;
+        case TD2S:
+            list = m_s2d_blocks.value(key);
+            list.append(QByteArray(buf, len));
+            m_d2s_blocks.insert(key, list);
+        default: break;
+    }
 }
 
 void TransferSkt::show(const QString& msg)
@@ -365,12 +416,16 @@ void TransferSktTcp::newData()
         }
         else if (s == conn->dst && m_block_dst)
         {
+            emit dstBlocked();
             show(QString("blocked").arg(buf));
+            store(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
             dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
         }
         else if (s == conn->src && m_block_src)
         {
+            emit srcBlocked();
             show(QString("blocked").arg(buf));
+            store(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
             dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
         }
         else
@@ -634,7 +689,6 @@ void TransferSktUdp::send(void* cookie, bool s2d, const QByteArray& bin)
 	recordSend(writeLen);
 	dump(src, srcLen, (s2d?SS2D:SD2S), conn->key);
 }
-
 void TransferSktUdp::check()
 {
 	QStringList list;

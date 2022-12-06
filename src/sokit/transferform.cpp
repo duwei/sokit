@@ -89,9 +89,17 @@ bool TransferForm::initForm()
 
 	connect(m_ui.btnTrigger, SIGNAL(clicked(bool)), this, SLOT(trigger(bool)));
 
+    connect(m_ui.btnSrcReply, SIGNAL(clicked(bool)), this, SLOT(srcReply()));
+    connect(m_ui.btnDstReply, SIGNAL(clicked(bool)), this, SLOT(dstReply()));
+
     connect(m_ui.chkBlockSrc, SIGNAL(clicked(bool)), this, SLOT(block()));
     connect(m_ui.chkBlockDst, SIGNAL(clicked(bool)), this, SLOT(block()));
     connect(m_ui.btnResend, SIGNAL(clicked(bool)), this, SLOT(resend()));
+
+    //m_ui.btnSrcReply->setVisible(false);
+    m_ui.btnSrcClear->setVisible(false);
+    //m_ui.btnDstReply->setVisible(false);
+    m_ui.btnDstClear->setVisible(false);
 
 	return true;
 }
@@ -122,6 +130,44 @@ void TransferForm::block()
         m_server->setBlockSrc(m_ui.chkBlockSrc->checkState() == Qt::CheckState::Checked);
         m_server->setBlockDst(m_ui.chkBlockDst->checkState() == Qt::CheckState::Checked);
     }
+}
+
+void TransferForm::srcReply()
+{
+    QStringList list;
+    listerSelected(list);
+
+    while (!list.isEmpty())
+    {
+        QString key = list.takeFirst();
+        m_server->flush(key, true);
+    }
+//    m_ui.btnSrcReply->setEnabled(false);
+}
+
+void TransferForm::dstReply()
+{
+    QStringList list;
+    listerSelected(list);
+
+    while (!list.isEmpty())
+    {
+        QString key = list.takeFirst();
+        m_server->flush(key, false);
+    }
+//    m_ui.btnSrcReply->setEnabled(false);
+}
+
+void TransferForm::srcBlocked()
+{
+    m_ui.btnSrcReply->setEnabled(true);
+    m_ui.btnSrcClear->setEnabled(true);
+}
+
+void TransferForm::dstBlocked()
+{
+    m_ui.btnDstReply->setEnabled(true);
+    m_ui.btnDstClear->setEnabled(true);
 }
 
 void TransferForm::trigger(bool start)
@@ -160,6 +206,9 @@ void TransferForm::trigger(bool start)
 				connect(m_server, SIGNAL(countRecv(qint32)), this, SLOT(countRecv(qint32)));
 				connect(m_server, SIGNAL(countSend(qint32)), this, SLOT(countSend(qint32)));
 				connect(m_server, SIGNAL(stopped()), this, SLOT(stop()));
+
+                connect(m_server, SIGNAL(srcBlocked()), this, SLOT(srcBlocked()));
+                connect(m_server, SIGNAL(dstBlocked()), this, SLOT(dstBlocked()));
 				
 				start = m_server->start(sa.ip, sa.port, da.ip, da.port);
 				if (!start)
@@ -215,7 +264,7 @@ void TransferForm::send(const QString& data, const QString& dir)
 
 		while (!list.isEmpty())
         {
-               m_ui.labSend->setText("ddd");
+            //m_ui.labSend->setText("ddd");
             m_server->send(list.takeFirst(), s2d, data);
         }
 
@@ -257,9 +306,6 @@ void TransferForm::resend()
         unlock();
     }
 }
-
-
-
 
 
 
