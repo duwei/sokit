@@ -179,7 +179,7 @@ bool ClientForm::plug(bool istcp)
 
 	if (res && skt)
 	{
-		res = skt->plug(addr.ip, addr.port);
+        res = skt->plug(addr.ip, addr.port, m_ui.spnCount->value());
 
 		if (res)
 			TK::pushIPAddr(m_ui.cmbAddr, m_ui.cmbPort);

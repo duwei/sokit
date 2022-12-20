@@ -3,6 +3,7 @@
 
 #include <QTcpSocket>
 #include <QUdpSocket>
+#include <QList>
 
 class ClientSkt : public QObject
 {
@@ -14,7 +15,7 @@ public:
 
 	virtual QString name() const { return "General"; };
 
-	bool plug(const QHostAddress& ip, quint16 port);
+    bool plug(const QHostAddress& ip, quint16 port, quint16 count = 1);
 	void unplug();
 	void send(const QString& data);
 
@@ -38,7 +39,7 @@ protected:
 	void recordRecv(qint32 bytes);
 	void recordSend(qint32 bytes);
 
-	virtual bool open() =0;
+    virtual bool open(quint16 count) =0;
 	virtual void close() =0;
 	virtual void send(const QByteArray& data) =0;
 
@@ -60,7 +61,7 @@ public:
 	virtual QString name() const { return "TCP"; };
 
 protected:
-	virtual bool open();
+    virtual bool open(quint16 count);
 	virtual void close();
 	virtual void send(const QByteArray& bin);
 
@@ -72,6 +73,7 @@ private slots:
 
 private:
 	QTcpSocket m_socket;
+    QList<QTcpSocket*> m_socket_list;
 };
 
 class ClientSktUdp : public ClientSkt
@@ -85,7 +87,7 @@ public:
 	virtual QString name() const { return "UDP"; };
 
 protected:
-	virtual bool open();
+    virtual bool open(quint16 count);
 	virtual void close();
 	virtual void send(const QByteArray& bin);
 
@@ -97,6 +99,7 @@ private slots:
 
 private:
 	QUdpSocket m_socket;
+    QList<QUdpSocket*> m_socket_list;
 };
 
 #endif // __CLIENTSKT_H__

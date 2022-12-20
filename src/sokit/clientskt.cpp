@@ -13,14 +13,14 @@ ClientSkt::~ClientSkt()
 {
 }
 
-bool ClientSkt::plug(const QHostAddress& ip, quint16 port)
+bool ClientSkt::plug(const QHostAddress& ip, quint16 port, quint16 count)
 {
 	m_ip   = ip;
 	m_port = port;
 
 	m_error.clear();
 
-	return open();
+    return open(count);
 }
 
 void ClientSkt::unplug()
@@ -78,22 +78,38 @@ ClientSktTcp::~ClientSktTcp()
 {
 }
 
-bool ClientSktTcp::open()
+bool ClientSktTcp::open(quint16 count)
 {
-	connect(&m_socket, SIGNAL(readyRead()), this, SLOT(newData()));
-	connect(&m_socket, SIGNAL(disconnected()), this, SLOT(closed()));
-	connect(&m_socket, SIGNAL(connected()), this, SLOT(asynConn()));
-	connect(&m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
+    for(quint16 i=0; i<count; i++){
+        QTcpSocket *s = new QTcpSocket();
+        connect(s, SIGNAL(readyRead()), this, SLOT(newData()));
+        connect(s, SIGNAL(disconnected()), this, SLOT(closed()));
+        connect(s, SIGNAL(connected()), this, SLOT(asynConn()));
+        connect(s, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
 
-	m_socket.connectToHost(addr(), port());
+        s->connectToHost(addr(), port());
+        m_socket_list.append(s);
+    }
+//    connect(&m_socket, SIGNAL(readyRead()), this, SLOT(newData()));
+//    connect(&m_socket, SIGNAL(disconnected()), this, SLOT(closed()));
+//    connect(&m_socket, SIGNAL(connected()), this, SLOT(asynConn()));
+//    connect(&m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
+
+//    m_socket.connectToHost(addr(), port());
 
 	return true;
 }
 
 void ClientSktTcp::close()
 {
-	m_socket.close();
-	m_socket.disconnect(this);
+//	m_socket.close();
+//	m_socket.disconnect(this);
+    for(QList<QTcpSocket*>::iterator i = m_socket_list.begin(); i != m_socket_list.end(); ++i) {
+        (**i).close();
+        (**i).disconnect(this);
+        delete *i;
+    }
+    m_socket_list.clear();
 }
 
 void ClientSktTcp::error()
@@ -148,24 +164,44 @@ void ClientSktTcp::send(const QByteArray& bin)
 	const char *  src = bin.constData(); 
 	qint64 srcLen = bin.length();
 
-	qint64 writeLen = 0;
-	qint64 ioLen = m_socket.write(src, srcLen);
+    for(QList<QTcpSocket*>::iterator i = m_socket_list.begin(); i != m_socket_list.end(); ++i) {
+        qint64 writeLen = 0;
+        qint64 ioLen = (*i)->write(src, srcLen);
 
-	while (ioLen > 0)
-	{
-		writeLen += ioLen;
-		ioLen = m_socket.write(src+writeLen, srcLen-writeLen);
-	}
+        while (ioLen > 0)
+        {
+            writeLen += ioLen;
+            ioLen = (*i)->write(src+writeLen, srcLen-writeLen);
+        }
 
-	if (writeLen != srcLen)
-	{
-		show(QString("failed to send data to %1:%2 [%3]")
-			.arg(addr().toString()).arg(port()).arg(writeLen));
-		return;
-	}
+        if (writeLen != srcLen)
+        {
+            show(QString("failed to send data to %1:%2 [%3]")
+                .arg(addr().toString()).arg(port()).arg(writeLen));
+            return;
+        }
 
-	recordSend(writeLen);
-	dump(src, srcLen, true);
+        recordSend(writeLen);
+        dump(src, srcLen, true);
+    }
+//	qint64 writeLen = 0;
+//	qint64 ioLen = m_socket.write(src, srcLen);
+
+//	while (ioLen > 0)
+//	{
+//		writeLen += ioLen;
+//		ioLen = m_socket.write(src+writeLen, srcLen-writeLen);
+//	}
+
+//	if (writeLen != srcLen)
+//	{
+//		show(QString("failed to send data to %1:%2 [%3]")
+//			.arg(addr().toString()).arg(port()).arg(writeLen));
+//		return;
+//	}
+
+//	recordSend(writeLen);
+//	dump(src, srcLen, true);
 }
 
 ClientSktUdp::ClientSktUdp(QObject *parent)
@@ -192,6 +228,13 @@ void ClientSktUdp::close()
 {
 	m_socket.close();
 	m_socket.disconnect(this);
+
+    for(QList<QUdpSocket*>::iterator i = m_socket_list.begin(); i != m_socket_list.end(); ++i) {
+        (**i).close();
+        (**i).disconnect(this);
+        delete *i;
+    }
+    m_socket_list.clear();
 }
 
 void ClientSktUdp::error()
@@ -203,15 +246,24 @@ void ClientSktUdp::error()
 	unplug();
 }
 
-bool ClientSktUdp::open()
+bool ClientSktUdp::open(quint16 count)
 {
-	connect(&m_socket, SIGNAL(readyRead()), this, SLOT(newData()));
-	connect(&m_socket, SIGNAL(disconnected()), this, SLOT(closed()));
-	connect(&m_socket, SIGNAL(connected()), this, SLOT(asynConn()));
-	connect(&m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
+    for(quint16 i=0; i<count; i++){
+        QUdpSocket *s = new QUdpSocket();
+        connect(s, SIGNAL(readyRead()), this, SLOT(newData()));
+        connect(s, SIGNAL(disconnected()), this, SLOT(closed()));
+        connect(s, SIGNAL(connected()), this, SLOT(asynConn()));
+        connect(s, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
 
-	m_socket.connectToHost(addr(), port());
+        s->connectToHost(addr(), port());
+        m_socket_list.append(s);
+    }
+//	connect(&m_socket, SIGNAL(readyRead()), this, SLOT(newData()));
+//	connect(&m_socket, SIGNAL(disconnected()), this, SLOT(closed()));
+//	connect(&m_socket, SIGNAL(connected()), this, SLOT(asynConn()));
+//	connect(&m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
 
+//	m_socket.connectToHost(addr(), port());
 	return true;
 }
 
@@ -247,24 +299,26 @@ void ClientSktUdp::send(const QByteArray& bin)
 	const char *  src = bin.constData(); 
 	qint64 srcLen = bin.length();
 
-	qint64 writeLen = 0;
-	qint64 ioLen = m_socket.write(src, srcLen);
+    for(QList<QUdpSocket*>::iterator i = m_socket_list.begin(); i != m_socket_list.end(); ++i) {
+        qint64 writeLen = 0;
+        qint64 ioLen = (*i)->write(src, srcLen);
 
-	while (ioLen > 0)
-	{
-		writeLen += ioLen;
-		ioLen = (writeLen >= srcLen) ? 0 :
-				m_socket.write(src+writeLen, srcLen-writeLen);
-	}
+        while (ioLen > 0)
+        {
+            writeLen += ioLen;
+            ioLen = (writeLen >= srcLen) ? 0 :
+                    (*i)->write(src+writeLen, srcLen-writeLen);
+        }
 
-	if (writeLen != srcLen)
-	{
-		show(QString("failed to send data to %1:%2 [%3]")
-			.arg(addr().toString()).arg(port()).arg(writeLen));
-		return;
-	}
+        if (writeLen != srcLen)
+        {
+            show(QString("failed to send data to %1:%2 [%3]")
+                .arg(addr().toString()).arg(port()).arg(writeLen));
+            return;
+        }
 
-	recordSend(writeLen);
-	dump(src, srcLen, true);
+        recordSend(writeLen);
+        dump(src, srcLen, true);
+    }
 }
 
