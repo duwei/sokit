@@ -3,7 +3,7 @@
 # ----------------------------------------------------
 
 TEMPLATE = app
-TARGET = sokit
+TARGET = miniproxy
 
 QT += gui widgets network
 CONFIG += debug_and_release build_all thread

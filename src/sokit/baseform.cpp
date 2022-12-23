@@ -201,10 +201,10 @@ void BaseForm::kill()
 
 void BaseForm::listerSelected(QStringList& output)
 {
-	qint32 i = m_cnlist->count();
+    qint32 i = m_cnlist->count();
 	while (i--)
 	{
-		QListWidgetItem* itm = m_cnlist->item(i);
+        QListWidgetItem* itm = m_cnlist->item(i);
 		if (itm && itm->isSelected())
 			output << itm->text();
 	}
@@ -213,17 +213,22 @@ void BaseForm::listerSelected(QStringList& output)
 void BaseForm::listerAdd(const QString& caption)
 {
 	listerRemove(caption);
-	m_cnlist->addItem(caption);
+    QListWidgetItem *item = new QListWidgetItem;
+    item->setText(caption);
+    //item->setFlags(item->flags() | Qt::ItemIsEditable);
+    item->setCheckState(Qt::Unchecked);
+    //m_cnlist->addItem(caption);
+    m_cnlist->addItem(item);
 }
 
 void BaseForm::listerRemove(const QString& caption)
 {
-	qint32 i = m_cnlist->count();
+    qint32 i = m_cnlist->count();
 	while (i--)
 	{
 		QListWidgetItem* itm = m_cnlist->item(i);
 		if (itm && itm->text()==caption)
-			delete m_cnlist->takeItem(i);
+            delete m_cnlist->takeItem(i);
 	}
 }
 

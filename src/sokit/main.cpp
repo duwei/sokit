@@ -144,7 +144,7 @@ bool Sokit::initUI()
     connect(k, SIGNAL(activated()), h, SLOT(exec()));
 	connect(t, SIGNAL(activated()), this, SLOT(ontop()));
 
-	m_wnd.setWindowTitle(translate("Sokit", "sokit -- F1 for help"));
+    m_wnd.setWindowTitle(translate("MiniProxy", "miniproxy -- F1 for help"));
 	m_wnd.setWindowIcon(QIcon(":/sokit.png"));
 
 	QWidget* pnl = new QWidget(&m_wnd);

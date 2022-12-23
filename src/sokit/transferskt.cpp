@@ -27,6 +27,8 @@ bool TransferSkt::start(const QHostAddress& sip, quint16 spt, const QHostAddress
 	m_conns.clear();
 	m_error.clear();
 
+    m_conn_states.clear();
+
     m_s2d_blocks.clear();
     m_d2s_blocks.clear();
 
@@ -67,6 +69,7 @@ void TransferSkt::stop()
 	m_conns.clear();
     m_s2d_blocks.clear();
     m_d2s_blocks.clear();
+    m_conn_states.clear();
 
 	close();
 
@@ -103,6 +106,7 @@ void TransferSkt::setCookie(const QString& k, void* v)
 	}
 
 	m_conns.insert(k, v);
+    m_conn_states.insert(k, 0);
     m_s2d_blocks.insert(k, QByteArrayList());
     m_d2s_blocks.insert(k, QByteArrayList());
 	emit connOpen(k);
@@ -111,6 +115,7 @@ void TransferSkt::setCookie(const QString& k, void* v)
 void TransferSkt::unsetCookie(const QString& k)
 {
 	m_conns.remove(k);
+    m_conn_states.remove(k);
     m_s2d_blocks.remove(k);
     m_d2s_blocks.remove(k);
 	emit connClose(k);
@@ -388,6 +393,7 @@ void TransferSktTcp::newData()
 
 	Conn* conn = (Conn*)s->property(PROP_CONN).value<void*>();
 	if (!conn) return;
+     int state = m_conn_states.value(conn->key);
 
 	QTcpSocket* d = (s == conn->src) ? conn->dst : conn->src;
 
@@ -412,6 +418,12 @@ void TransferSktTcp::newData()
         if (conn->broken)
         {
             show(QString("broken").arg(buf));
+            dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
+        }
+        else if (state == Qt::Checked)
+        {
+            show(QString("blocked by check.").arg(buf));
+            store(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
             dump(buf, readLen, ((s==conn->src) ? TS2D:TD2S), conn->key);
         }
         else if (s == conn->dst && m_block_dst)

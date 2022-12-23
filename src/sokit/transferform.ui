@@ -23,6 +23,699 @@
    <locale language="C" country="AnyCountry"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <layout class="QGridLayout" name="lay3">
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="spacing">
+      <number>5</number>
+     </property>
+     <item row="1" column="2">
+      <widget class="QLineEdit" name="edtBuf2">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QComboBox" name="cmbDir3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">S -&gt; D</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">D -&gt; S</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QToolButton" name="btnSend2">
+       <property name="minimumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Send</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QComboBox" name="cmbDir1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">S -&gt; D</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">D -&gt; S</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lab7">
+       <property name="text">
+        <string>Buf 3:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lab5">
+       <property name="text">
+        <string>Buf 1:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QToolButton" name="btnSend3">
+       <property name="minimumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Send</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLineEdit" name="edtBuf1">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QToolButton" name="btnSend1">
+       <property name="minimumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Send</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lab6">
+       <property name="text">
+        <string>Buf 2:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QComboBox" name="cmbDir2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">S -&gt; D</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">D -&gt; S</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="edtBuf3">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="lay4">
+     <property name="spacing">
+      <number>5</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lab8">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Output:    </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lab9">
+       <property name="text">
+        <string>Recv</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labRecv">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string notr="true">0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lab10">
+       <property name="text">
+        <string>, Send</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labSend">
+       <property name="toolTip">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string notr="true">0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spc">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>13</width>
+         <height>13</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chkLog">
+       <property name="text">
+        <string>Write log</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="btnClear">
+       <property name="minimumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>60</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <layout class="QGridLayout" name="lay5_2">
+     <item row="0" column="0">
+      <widget class="QLineEdit" name="edtReplaceBuf1">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QCheckBox" name="chkReplace2">
+       <property name="minimumSize">
+        <size>
+         <width>74</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>74</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Replace</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLineEdit" name="edtReplaceBuf3">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="cmbReplaceDir3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">S -&gt; D</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">D -&gt; S</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QLineEdit" name="edtReplaceBuf30">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QCheckBox" name="chkReplace3">
+       <property name="minimumSize">
+        <size>
+         <width>74</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>74</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Replace</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QLineEdit" name="edtReplaceBuf10">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="cmbReplaceDir1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">S -&gt; D</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">D -&gt; S</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="edtReplaceBuf2">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QLineEdit" name="edtReplaceBuf20">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QCheckBox" name="chkReplace1">
+       <property name="minimumSize">
+        <size>
+         <width>74</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>74</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Replace</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="cmbReplaceDir2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>24</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">S -&gt; D</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">D -&gt; S</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <widget class="QTreeWidget" name="treeOutput">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>false</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="headerStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string notr="true">1</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QPlainTextEdit" name="txtOutput">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>70</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>70</height>
+      </size>
+     </property>
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="tabChangesFocus">
+      <bool>true</bool>
+     </property>
+     <property name="undoRedoEnabled">
+      <bool>false</bool>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="lay2">
      <item>
@@ -92,8 +785,8 @@
             <rect>
              <x>4</x>
              <y>18</y>
-             <width>501</width>
-             <height>56</height>
+             <width>508</width>
+             <height>57</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -221,9 +914,6 @@
             </item>
             <item row="0" column="5">
              <widget class="QToolButton" name="btnSrcReply">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -443,9 +1133,6 @@
             </item>
             <item row="1" column="5">
              <widget class="QToolButton" name="btnDstReply">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -580,10 +1267,7 @@
            <enum>QAbstractItemView::MultiSelection</enum>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
-          </property>
-          <property name="selectionRectVisible">
-           <bool>false</bool>
+           <enum>QAbstractItemView::SelectColumns</enum>
           </property>
          </widget>
         </item>
@@ -681,699 +1365,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="1" column="0">
-    <layout class="QGridLayout" name="lay3">
-     <property name="topMargin">
-      <number>5</number>
-     </property>
-     <property name="spacing">
-      <number>5</number>
-     </property>
-     <item row="0" column="3">
-      <widget class="QComboBox" name="cmbDir1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="frame">
-        <bool>true</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">S -&gt; D</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">D -&gt; S</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QComboBox" name="cmbDir3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">S -&gt; D</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">D -&gt; S</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QToolButton" name="btnSend2">
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Send</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="4">
-      <widget class="QToolButton" name="btnSend3">
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Send</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="lab5">
-       <property name="text">
-        <string>Buf 1:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QLineEdit" name="edtBuf3">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="lab6">
-       <property name="text">
-        <string>Buf 2:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QLineEdit" name="edtBuf1">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLineEdit" name="edtBuf2">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QComboBox" name="cmbDir2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">S -&gt; D</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">D -&gt; S</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="lab7">
-       <property name="text">
-        <string>Buf 3:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QToolButton" name="btnSend1">
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Send</string>
-       </property>
-       <property name="checkable">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
-    <layout class="QHBoxLayout" name="lay4">
-     <property name="spacing">
-      <number>5</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>5</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="lab8">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Output:    </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lab9">
-       <property name="text">
-        <string>Recv</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labRecv">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string notr="true">0</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="lab10">
-       <property name="text">
-        <string>, Send</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labSend">
-       <property name="toolTip">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string notr="true">0</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="spc">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chkLog">
-       <property name="text">
-        <string>Write log</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="btnClear">
-       <property name="minimumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>60</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Clear</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="3" column="0">
-    <layout class="QGridLayout" name="lay5_2">
-     <item row="0" column="2">
-      <widget class="QCheckBox" name="chkReplace1">
-       <property name="minimumSize">
-        <size>
-         <width>74</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>74</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Replace</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="QLineEdit" name="edtReplaceBuf10">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QCheckBox" name="chkReplace3">
-       <property name="minimumSize">
-        <size>
-         <width>74</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>74</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Replace</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QLineEdit" name="edtReplaceBuf20">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLineEdit" name="edtReplaceBuf1">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QCheckBox" name="chkReplace2">
-       <property name="minimumSize">
-        <size>
-         <width>74</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>74</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Replace</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLineEdit" name="edtReplaceBuf3">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="4">
-      <widget class="QLineEdit" name="edtReplaceBuf30">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="edtReplaceBuf2">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QComboBox" name="cmbReplaceDir1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="frame">
-        <bool>true</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">S -&gt; D</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">D -&gt; S</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QComboBox" name="cmbReplaceDir2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">S -&gt; D</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">D -&gt; S</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QComboBox" name="cmbReplaceDir3">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>24</height>
-        </size>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">S -&gt; D</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">D -&gt; S</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="4" column="0">
-    <widget class="QTreeWidget" name="treeOutput">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="showDropIndicator" stdset="0">
-      <bool>false</bool>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>false</bool>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::ExtendedSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-     <attribute name="headerVisible">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="headerStretchLastSection">
-      <bool>true</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string notr="true">1</string>
-      </property>
-     </column>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QPlainTextEdit" name="txtOutput">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>70</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>70</height>
-      </size>
-     </property>
-     <property name="acceptDrops">
-      <bool>false</bool>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="tabChangesFocus">
-      <bool>true</bool>
-     </property>
-     <property name="undoRedoEnabled">
-      <bool>false</bool>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

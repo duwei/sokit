@@ -33,6 +33,8 @@ private slots:
     void srcBlocked();
     void dstBlocked();
 
+    void stateChanged(QListWidgetItem* item);
+
 private:
 	TransferSkt* m_server;
 	Ui::TransferForm m_ui;

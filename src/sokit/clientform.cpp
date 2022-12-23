@@ -40,6 +40,8 @@ bool ClientForm::initForm()
     connect(m_ui.btnLoadLog, SIGNAL(clicked(bool)), this, SLOT(loadLog()));
     connect(m_ui.btnSend, SIGNAL(clicked(bool)), this, SLOT(sendFromLog()));
 
+    m_ui.spnConnInterval->setVisible(false);
+
 	return true;
 }
 

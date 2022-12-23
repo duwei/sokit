@@ -13,14 +13,14 @@ ClientSkt::~ClientSkt()
 {
 }
 
-bool ClientSkt::plug(const QHostAddress& ip, quint16 port, quint16 count)
+bool ClientSkt::plug(const QHostAddress& ip, quint16 port, quint16 count, quint16 interval)
 {
 	m_ip   = ip;
 	m_port = port;
 
 	m_error.clear();
 
-    return open(count);
+    return open(count, interval);
 }
 
 void ClientSkt::unplug()
@@ -78,7 +78,7 @@ ClientSktTcp::~ClientSktTcp()
 {
 }
 
-bool ClientSktTcp::open(quint16 count)
+bool ClientSktTcp::open(quint16 count, quint16 interval)
 {
     for(quint16 i=0; i<count; i++){
         QTcpSocket *s = new QTcpSocket();
@@ -246,7 +246,7 @@ void ClientSktUdp::error()
 	unplug();
 }
 
-bool ClientSktUdp::open(quint16 count)
+bool ClientSktUdp::open(quint16 count, quint16 interval)
 {
     for(quint16 i=0; i<count; i++){
         QUdpSocket *s = new QUdpSocket();
@@ -264,6 +264,7 @@ bool ClientSktUdp::open(quint16 count)
 //	connect(&m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
 
 //	m_socket.connectToHost(addr(), port());
+
 	return true;
 }
 

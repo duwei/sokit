@@ -89,12 +89,14 @@ bool TransferForm::initForm()
 
 	connect(m_ui.btnTrigger, SIGNAL(clicked(bool)), this, SLOT(trigger(bool)));
 
-    connect(m_ui.btnSrcReply, SIGNAL(clicked(bool)), this, SLOT(srcReply()));
-    connect(m_ui.btnDstReply, SIGNAL(clicked(bool)), this, SLOT(dstReply()));
+     connect(m_ui.btnSrcReply, SIGNAL(clicked(bool)), this, SLOT(srcReply()));
+     connect(m_ui.btnDstReply, SIGNAL(clicked(bool)), this, SLOT(dstReply()));
 
-    connect(m_ui.chkBlockSrc, SIGNAL(clicked(bool)), this, SLOT(block()));
-    connect(m_ui.chkBlockDst, SIGNAL(clicked(bool)), this, SLOT(block()));
-    connect(m_ui.btnResend, SIGNAL(clicked(bool)), this, SLOT(resend()));
+     connect(m_ui.chkBlockSrc, SIGNAL(clicked(bool)), this, SLOT(block()));
+     connect(m_ui.chkBlockDst, SIGNAL(clicked(bool)), this, SLOT(block()));
+     connect(m_ui.btnResend, SIGNAL(clicked(bool)), this, SLOT(resend()));
+
+     connect(m_ui.lstConn, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(stateChanged(QListWidgetItem*)));
 
     //m_ui.btnSrcReply->setVisible(false);
     m_ui.btnSrcClear->setVisible(false);
@@ -270,6 +272,16 @@ void TransferForm::send(const QString& data, const QString& dir)
 
 		unlock();
 	}
+}
+
+void TransferForm::stateChanged(QListWidgetItem* item)
+{
+//    qDebug() << item->checkState();
+    if (m_server && lock(1000))
+    {
+        m_server->setExceptConn(item->text(), item->checkState());
+        unlock();
+    }
 }
 
 void TransferForm::resend()

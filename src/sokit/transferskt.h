@@ -35,6 +35,7 @@ public:
 
     void setBlockSrc(bool block) { m_block_src = block; }
     void setBlockDst(bool block) { m_block_dst = block; }
+    void setExceptConn(QString key, int state) { m_conn_states[key] = state; }
 signals:
 	void connOpen(const QString& key);
 	void connClose(const QString& key);
@@ -85,6 +86,7 @@ private:
 protected:
     bool m_block_src = false;
     bool m_block_dst = false;
+    QHash<QString, int> m_conn_states;
 };
 
 class TransferSktTcp : public TransferSkt

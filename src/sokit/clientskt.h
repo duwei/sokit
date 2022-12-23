@@ -15,7 +15,7 @@ public:
 
 	virtual QString name() const { return "General"; };
 
-    bool plug(const QHostAddress& ip, quint16 port, quint16 count = 1);
+    bool plug(const QHostAddress& ip, quint16 port, quint16 count = 1, quint16 interval = 0);
 	void unplug();
 	void send(const QString& data);
 
@@ -39,7 +39,7 @@ protected:
 	void recordRecv(qint32 bytes);
 	void recordSend(qint32 bytes);
 
-    virtual bool open(quint16 count) =0;
+    virtual bool open(quint16 count, quint16 interval) =0;
 	virtual void close() =0;
 	virtual void send(const QByteArray& data) =0;
 
@@ -61,7 +61,7 @@ public:
 	virtual QString name() const { return "TCP"; };
 
 protected:
-    virtual bool open(quint16 count);
+    virtual bool open(quint16 count, quint16 interval);
 	virtual void close();
 	virtual void send(const QByteArray& bin);
 
@@ -87,7 +87,7 @@ public:
 	virtual QString name() const { return "UDP"; };
 
 protected:
-    virtual bool open(quint16 count);
+    virtual bool open(quint16 count, quint16 interval);
 	virtual void close();
 	virtual void send(const QByteArray& bin);
 

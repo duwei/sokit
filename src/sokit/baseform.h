@@ -25,7 +25,7 @@ protected:
 
 	void initCounter(QLabel* r, QLabel* s);
 	void initLogger(QCheckBox* w, QToolButton* c, QTreeWidget* o, QPlainTextEdit* d);
-	void initLister(QToolButton* a, QToolButton* k, QListWidget* l);
+    void initLister(QToolButton* a, QToolButton* k, QListWidget* l);
 	void bindBuffer(qint32 id, QLineEdit* e, QToolButton* s, QComboBox* d);
 	void bindFocus(QWidget* w, qint32 k);
 	void bindClick(QAbstractButton* b, qint32 k);
@@ -68,7 +68,7 @@ private:
 	QLabel* m_labRecv;
 	QLabel* m_labSend;
 
-	QListWidget* m_cnlist;
+    QListWidget* m_cnlist;
 };
 
 #endif // __BASEFORM_H__
