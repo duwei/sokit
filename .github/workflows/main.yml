@@ -19,7 +19,7 @@ jobs:
       - name: Install Qt
         run: |
           echo "Installing Qt"
-          choco install qt --version=5.15.2 --params="'/NoDesktop'" # 根据需要选择版本和参数
+          choco install qt --params="'/NoDesktop'" # 不指定版本，安装最新版本
 
       - name: Build the project
         run: |
