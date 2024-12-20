@@ -16,19 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install vcpkg
+      - name: Install Qt
         run: |
-          git clone https://github.com/microsoft/vcpkg.git
-          cd vcpkg
-          ./bootstrap-vcpkg.bat
-
-      - name: Install Qt using vcpkg
-        run: |
-          .\vcpkg\vcpkg install qt5
+          echo "Installing Qt"
+          choco install qt --params="'/NoDesktop'" # 不指定版本，安装最新版本
 
       - name: Build the project
         run: |
           echo "Building the project"
+          set PATH=%PATH%;C:\Program Files\Qt\5.15.16\msvc2019_64\bin  # 更新为正确的 Qt 版本路径
           cd build/general/qtcreator
           qmake sokit.pro
           nmake
