@@ -1,0 +1,34 @@
+name: Build Windows Version
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Qt
+        run: |
+          echo "Installing Qt"
+          choco install qt --version=5.15.2 --params="'/NoDesktop'" # 根据需要选择版本和参数
+
+      - name: Build the project
+        run: |
+          echo "Building the project"
+          cd build/general/qtcreator
+          qmake sokit.pro
+          nmake
+
+      - name: Archive the output
+        run: |
+          echo "Archiving the output"
+          Compress-Archive -Path bin\debug\* -DestinationPath output.zip
