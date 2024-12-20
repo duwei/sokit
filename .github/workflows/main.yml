@@ -26,7 +26,7 @@ jobs:
       - name: Build the project
         run: |
           echo "Building the project"
-          set PATH=%PATH%;D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin  # 更新为 vcpkg 的 Qt 安装路径
+          $env:PATH += ";D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin"  # 更新为 vcpkg 的 Qt 安装路径
           cd build/general/qtcreator
           qmake sokit.pro
           nmake
