@@ -16,10 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Qt
+      - name: Install vcpkg
         run: |
-          echo "Installing Qt"
-          choco install qt --params="'/NoDesktop'" # 不指定版本，安装最新版本
+          git clone https://github.com/microsoft/vcpkg.git
+          cd vcpkg
+          ./bootstrap-vcpkg.bat
+
+      - name: Install Qt using vcpkg
+        run: |
+          .\vcpkg\vcpkg install qt5
 
       - name: Build the project
         run: |
