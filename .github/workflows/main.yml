@@ -29,6 +29,7 @@ jobs:
           $env:PATH += ";D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin"  # 更新为 vcpkg 的 Qt 安装路径
           cd build/general/qtcreator
           where qmake  # 查找 qmake 的位置
+          dir D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin  # 列出 bin 目录内容
           qmake sokit.pro
           nmake
 
