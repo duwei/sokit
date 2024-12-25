@@ -28,8 +28,19 @@ jobs:
           echo "Building the project"
           $env:PATH += ";D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin"  # 更新为 vcpkg 的 Qt 安装路径
           cd build/general/qtcreator
-          where qmake  # 查找 qmake 的位置
-          dir D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin  # 列出 bin 目录内容
+          - name: Debug qmake location
+            run: |
+              echo "Current PATH: $env:PATH"
+              echo "Attempting to locate qmake..."
+              where qmake
+              if (!(where qmake)) {
+                echo "qmake not found in PATH. Checking common locations..."
+                if (Test-Path "C:\Qt\5.15.2\msvc2019_64\bin\qmake.exe") {
+                  echo "qmake found at C:\Qt\5.15.2\msvc2019_64\bin\qmake.exe"
+                } else {
+                  echo "qmake not found in common locations."
+                }
+              }
           qmake sokit.pro
           nmake
 
