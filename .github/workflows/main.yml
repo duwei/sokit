@@ -16,12 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install vcpkg
+      - name: Install Qt
         run: |
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
           ./bootstrap-vcpkg.bat
           ./vcpkg install qt5
+          echo "Checking for qmake in vcpkg installed directory..."
+          $qtPath = "D:\a\sokit\sokit\vcpkg\installed\x64-windows\tools\qt5\bin"
+          if (Test-Path "$qtPath\qmake.exe") {
+            echo "qmake found at $qtPath\qmake.exe"
+            $env:PATH += ";$qtPath"
+          } else {
+            echo "qmake not found in the expected vcpkg path."
+          }
 
       - name: Build the project
         run: |
