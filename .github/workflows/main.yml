@@ -42,16 +42,7 @@ jobs:
           cd build/general/qtcreator
           echo "Current PATH: $env:PATH"
           echo "Attempting to locate qmake..."
-          where qmake
-          if (!(where qmake)) {
-            echo "qmake not found in PATH. Checking common locations..."
-            if (Test-Path "C:\\Qt\\5.15.2\\msvc2019_64\\bin\\qmake.exe") {
-              echo "qmake found at C:\\Qt\\5.15.2\\msvc2019_64\\bin\\qmake.exe"
-            } else {
-              echo "qmake not found in common locations."
-            }
-          }
-          qmake sokit.pro
+          D:\a\sokit\sokit\vcpkg\installed\x64-windows\tools\qt5\bin\qmake.exe sokit.pro
           nmake
 
       - name: Archive the output
