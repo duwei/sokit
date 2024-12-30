@@ -21,7 +21,9 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
           ./bootstrap-vcpkg.bat
-          ./vcpkg install qt5
+          ./vcpkg install qt5 > vcpkg_install_log.txt
+          echo "vcpkg install log:"  
+          cat vcpkg_install_log.txt
           echo "Checking for qmake in vcpkg installed directory..."
           $qtPath = "D:\a\sokit\sokit\vcpkg\installed\x64-windows\tools\qt5\bin"
           if (Test-Path "$qtPath\qmake.exe") {
@@ -30,6 +32,8 @@ jobs:
           } else {
             echo "qmake not found in the expected vcpkg path."
           }
+          echo "Listing vcpkg directory contents:"
+          dir D:\a\sokit\sokit\vcpkg\installed\x64-windows\tools\qt5\bin
 
       - name: Build the project
         run: |
