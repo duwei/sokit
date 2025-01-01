@@ -36,16 +36,18 @@ jobs:
           dir D:\a\sokit\sokit\vcpkg\installed\x64-windows\tools\qt5\bin
 
       - name: Setup Visual Studio Environment
+        shell: cmd
         run: |
           echo "Setting up Visual Studio environment"
-          & "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+          "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
 
       - name: Build the project
+        shell: cmd
         run: |
           echo "Building the project"
-          $env:PATH += ";D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin"  # 更新为 vcpkg 的 Qt 安装路径
-          cd build/general/qtcreator
-          echo "Current PATH: $env:PATH"
+          set PATH=%PATH%;D:\a\sokit\sokit\vcpkg\installed\x64-windows\bin  # 更新为 vcpkg 的 Qt 安装路径
+          cd build\general\qtcreator
+          echo "Current PATH: %PATH%"
           echo "Attempting to locate qmake..."
           D:\a\sokit\sokit\vcpkg\installed\x64-windows\tools\qt5\bin\qmake.exe sokit.pro
           nmake
