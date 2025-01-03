@@ -35,11 +35,8 @@ jobs:
           echo "Listing vcpkg directory contents:"
           dir D:\a\sokit\sokit\vcpkg\installed\x64-windows\tools\qt5\bin
 
-      - name: Setup Visual Studio Environment
-        shell: cmd
-        run: |
-          echo "Setting up Visual Studio environment"
-          "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
       - name: Build the project
         shell: cmd
